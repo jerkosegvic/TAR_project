@@ -42,7 +42,8 @@ def evaluate(dataset: Dataset, model: PreTrainedModel, device: torch.device = to
 
 
 def train(dataset_train: Dataset, dataset_val: Dataset, model: PreTrainedModel, optimizer_type: type = torch.optim.Adam, 
-        batch_size: int = 8, epochs: int = 5, device: torch.device = torch.device('cpu'), lr: float = 1e-4, gamma: Union[float,None] = None):
+        batch_size: int = 8, epochs: int = 5, device: torch.device = torch.device('cpu'), lr: float = 1e-4, 
+        gamma: Union[float,None] = None, loss_fn = torch.nn.CrossEntropyLoss()):
     '''
     Trains the model on the given dataset.
 
@@ -67,7 +68,7 @@ def train(dataset_train: Dataset, dataset_val: Dataset, model: PreTrainedModel, 
             The gamma parameter for the scheduler.
     '''
     model.to(device)
-    optimizer = optimizer_type(model.parameters())
+    optimizer = optimizer_type(model.parameters(), lr=lr)
 
     if gamma is not None:
         scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=gamma)
@@ -88,7 +89,9 @@ def train(dataset_train: Dataset, dataset_val: Dataset, model: PreTrainedModel, 
             
             ##TODO: change this if you want to use a different loss function
             ## or the model that outputs logits
-            loss = model_output.loss
+            #loss = model_output.loss
+            logits = model_output.logits
+            loss = loss_fn(logits, label)
             epoch_loss += loss.item()
             loss.backward()
             optimizer.step()
