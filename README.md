@@ -1,4 +1,5 @@
-# TAR_project
+# Some Are Never Right, Others Have Nothing Left: Unveiling Ideological
+Extremes in Parliamentary Debates Using BERT
 
 - ```dataset_creation_notebook.ipynb``` notebook for creating datasets from .tsv files
 - ```training.ipynb``` notebook for fine tuning BERT
