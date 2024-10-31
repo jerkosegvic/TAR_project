@@ -5,6 +5,8 @@ on a downstream task of classifying political speeches by their political orient
 compare political stances between the countries, as well as the difference between right and left policies within the specific country.
 Because of the fine-tuning task, we can peek at the attention scores of the last layer to improve the understanding of what words are
 associated with different ideologies in a political setting.
+
+### Usage
 - ```dataset_creation_notebook.ipynb``` notebook for creating datasets from .tsv files
 - ```training.ipynb``` notebook for fine tuning BERT
 - ```pca-visual-bert.ipynb``` notebook for all plots
